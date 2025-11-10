@@ -1,0 +1,41 @@
+﻿@page "/"
+
+@rendermode InteractiveServer
+@inject IProfileService profile
+@inject NavigationManager Navigation
+
+<h3>Index</h3>
+
+@if(error != null)
+{
+	@error
+}
+<EditForm Model="login" FormName="LoginForm" OnValidSubmit="GetInfosAndCheckAsync">
+	<InputText @bind-Value="login.Name"></InputText>
+	<InputText @bind-Value="login.Password"></InputText>
+	<button type="submit">Entrar</button>
+</EditForm>
+
+@code {
+	LoginViewModel login = new();
+	private string error = null!;
+
+	private async void GetInfosAndCheckAsync()
+	{
+		var result = await profile.ConfirmLoginAndCreateSessionAsync(login.Name, login.Password);
+
+		if(result == EAnswerLogin.Success)
+			Navigation.NavigateTo("/Home");
+
+		if (result == EAnswerLogin.ErrorUser)
+			error = "Usuário não existe";
+
+		if (result == EAnswerLogin.ErrorPassword)
+			error = "Senha não está correta";
+
+		if (result == EAnswerLogin.GeneralError)
+			error = "Ocorreu um erro, tente novamente mais tarde!";
+
+		StateHasChanged();
+	}
+}

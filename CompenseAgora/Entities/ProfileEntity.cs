@@ -10,5 +10,7 @@ namespace CompenseAgora.Entities
         public string Name { get; set; } = string.Empty;
         [StringLength(60)]
         public string SecondName { get; set; } = string.Empty;
+        [StringLength(60)]
+        public string Password { get; set; } = string.Empty;
     }
 }

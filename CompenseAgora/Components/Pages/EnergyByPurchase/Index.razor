@@ -1,5 +1,31 @@
-﻿<h3>Index</h3>
+﻿@page "/EnergiaPorCompra"
+
+@using System.Globalization
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Descrição da Fonte</th>
+            <th scope="col">Referência</th>
+            <th scope="col">Quantidade</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var energy in Energys)
+        {
+            <tr>
+                <th scope="row">@energy.Id</th>
+                <td>@energy.FontDescription</td>
+                <td>@energy.YearMonth.ToString("dd/MM/yyyy", new CultureInfo("pt-BR"))</td>
+                <td>@energy.Quantity.ToString("N6")</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
 
 @code {
-
+	List<ByBuyEnergyEntity> Energys = new();
 }
