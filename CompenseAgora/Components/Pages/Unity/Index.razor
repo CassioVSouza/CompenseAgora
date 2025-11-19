@@ -1,0 +1,66 @@
+@page "/unities"
+@using CompenseAgora.Models
+@using CompenseAgora.Services.Interfaces
+@rendermode InteractiveServer
+@inject IUnityService UnityService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<h3>Unidades</h3>
+
+<p>
+    <a href="/unities/add" class="btn btn-primary">Adicionar Nova Unidade</a>
+</p>
+
+@if (unities == null)
+{
+    <p><em>Carregando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var unity in unities)
+            {
+                <tr>
+                    <td>@unity.Name</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" @onclick="() => Edit(unity.Id)">Editar</button>
+                        <button class="btn btn-sm btn-danger" @onclick="() => Delete(unity.Id)">Excluir</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<UnityModel> unities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        unities = await UnityService.GetAllAsync();
+    }
+
+    private void Edit(int id)
+    {
+        NavigationManager.NavigateTo($"/unities/edit/{id}");
+    }
+
+    private async Task Delete(int id)
+    {
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Tem certeza que deseja excluir esta unidade?");
+        if (confirmed)
+        {
+            await UnityService.DeleteAsync(id);
+            unities = await UnityService.GetAllAsync(); // Refresh list
+            StateHasChanged();
+        }
+    }
+}

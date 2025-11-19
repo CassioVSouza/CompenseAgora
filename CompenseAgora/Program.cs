@@ -16,6 +16,18 @@ builder.Services.AddSqlServer<DataEFContext>(builder.Configuration.GetConnection
 builder.Services.AddScoped<SessionState>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IProfileRepositorie, ProfileRepositorie>();
+builder.Services.AddScoped<IUnityRepository, UnityRepository>();
+builder.Services.AddScoped<IUnityService, UnityService>();
+builder.Services.AddScoped<IEnergyByPurchaseRepository, EnergyByPurchaseRepository>();
+builder.Services.AddScoped<IEnergyByPurchaseService, EnergyByPurchaseService>();
+builder.Services.AddScoped<ISolarEnergyRepository, SolarEnergyRepository>();
+builder.Services.AddScoped<ISolarEnergyService, SolarEnergyService>();
+// ...
+builder.Services.AddScoped<IUnityRepository, UnityRepository>();
+builder.Services.AddScoped<IUnityService, UnityService>();
+builder.Services.AddScoped<IFactorEletricityRepository, FactorEletricityRepository>();
+
+// ...
 
 var app = builder.Build();
 

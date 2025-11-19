@@ -1,0 +1,32 @@
+@page "/unities/add"
+@using CompenseAgora.Models
+@using CompenseAgora.Services.Interfaces
+@rendermode InteractiveServer
+@inject IUnityService UnityService
+@inject NavigationManager NavigationManager
+
+<h3>Adicionar Unidade</h3>
+
+<EditForm Model="@Model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Nome:</label>
+        <InputText id="name" class="form-control" @bind-Value="Model.Name" />
+        <ValidationMessage For="@(() => Model.Name)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="/unities" class="btn btn-secondary">Cancelar</a>
+</EditForm>
+
+@code {
+    private UnityModel Model { get; set; } = new();
+
+    private async Task HandleValidSubmit()
+    {
+        await UnityService.AddAsync(Model);
+        NavigationManager.NavigateTo("/unities");
+    }
+}

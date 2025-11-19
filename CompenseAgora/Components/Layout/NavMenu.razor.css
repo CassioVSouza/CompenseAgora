@@ -17,7 +17,7 @@
 
 .top-row {
     min-height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: #1e1e1e;
 }
 
 .navbar-brand {
@@ -82,11 +82,40 @@
 }
 
 .nav-scrollable {
-    display: none;
+    height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.nav-scrollable::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
 }
 
 .navbar-toggler:checked ~ .nav-scrollable {
     display: block;
+}
+
+.nav-item .nav-link {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cadastro-submenu .nav-link,
+#escopo2-submenu .nav-link {
+    padding-left: 2.5rem !important; /* Indent sub-items */
+    font-size: 0.9rem;
+}
+
+#cadastro-submenu .nav-link span,
+#escopo2-submenu .nav-link span {
+    font-size: 0.8rem;
+}
+
+.nav-item span[class$="-nav-menu"] {
+    margin-right: 10px;
 }
 
 @media (min-width: 641px) {

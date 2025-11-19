@@ -1,0 +1,91 @@
+﻿@page "/energy-by-purchase/add"
+@using CompenseAgora.Models
+@using CompenseAgora.Services.Interfaces
+@inject IEnergyByPurchaseService EnergyPurchaseService
+@inject IUnityService UnityService
+@inject NavigationManager NavigationManager
+
+<h3>Adicionar Compra de Energia</h3>
+
+<EditForm Model="@Model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="unityId" class="form-label">Unidade:</label>
+        <InputSelect id="unityId" class="form-select" @bind-Value="Model.UnityID">
+            <option value="">Selecione uma unidade</option>
+            @if (Unities.Any())
+            {
+                @foreach (var unity in Unities)
+                {
+                    <option value="@unity.Id">@unity.Name</option>
+                }
+            }
+        </InputSelect>
+    </div>
+
+    <div class="mb-3">
+        <label for="yearMonth" class="form-label">Mês/Ano de Referência:</label>
+        <InputDate id="yearMonth" class="form-control" @bind-Value="Model.YearMonth" />
+    </div>
+
+    <div class="mb-3">
+        <label for="font" class="form-label">Fonte:</label>
+        <InputText id="font" class="form-control" @bind-Value="Model.Font" />
+    </div>
+
+    <div class="mb-3">
+        <label for="fontDescription" class="form-label">Descrição da Fonte:</label>
+        <InputText id="fontDescription" class="form-control" @bind-Value="Model.FontDescription" />
+    </div>
+
+    <div class="mb-3">
+        <label for="energyTypeCode" class="form-label">Código do Tipo de Energia:</label>
+        <InputNumber id="energyTypeCode" class="form-control" @bind-Value="Model.EnergyTypeCode" />
+    </div>
+    
+    <div class="mb-3">
+        <label for="typeEnergyGasID" class="form-label">ID do Tipo de Gás (Opcional):</label>
+        <InputNumber id="typeEnergyGasID" class="form-control" @bind-Value="Model.TypeEnergyGasID" />
+    </div>
+
+    <div class="mb-3">
+        <label for="quantity" class="form-label">Quantidade:</label>
+        <InputNumber id="quantity" class="form-control" @bind-Value="Model.Quantity" />
+    </div>
+
+    <div class="mb-3">
+        <label for="eficiency" class="form-label">Eficiência do Gerador da Planta:</label>
+        <InputNumber id="eficiency" class="form-control" @bind-Value="Model.EficiencyPlantGenerator" />
+    </div>
+
+    <div class="form-check mb-3">
+        <InputCheckbox id="annualReference" class="form-check-input" @bind-Value="Model.AnnualReference" />
+        <label for="annualReference" class="form-check-label">Referência Anual</label>
+    </div>
+
+    <div class="form-check mb-3">
+        <InputCheckbox id="hasEmissionFactor" class="form-check-input" @bind-Value="Model.HasEmissionFactor" />
+        <label for="hasEmissionFactor" class="form-check-label">Possui Fator de Emissão</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</EditForm>
+
+@code {
+    private EnergyByPurchaseModel Model { get; set; } = new();
+    private List<UnityEntity> Unities { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Supondo que o método se chame GetAllForSelectionAsync()
+        Unities = await UnityService.GetUnitsAsync();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await EnergyPurchaseService.AddEnergyByPurchaseAsync(Model);
+        NavigationManager.NavigateTo("/energy-by-purchase"); // Redireciona para a página de listagem
+    }
+}

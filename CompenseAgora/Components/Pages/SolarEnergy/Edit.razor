@@ -1,0 +1,94 @@
+@page "/solar-energy/edit/{Id:int}"
+@using CompenseAgora.Entities
+@using CompenseAgora.Models
+@using CompenseAgora.Services.Interfaces
+@rendermode InteractiveServer
+@inject ISolarEnergyService SolarEnergyService
+@inject IUnityService UnityService
+@inject NavigationManager NavigationManager
+
+<h3>Editar Energia Solar</h3>
+
+@if (Model == null)
+{
+    <p><em>Carregando...</em></p>
+}
+else
+{
+    <EditForm Model="@Model" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="unityId" class="form-label">Unidade:</label>
+            <InputSelect id="unityId" class="form-select" @bind-Value="Model.UnityID">
+                <option value="">Selecione uma unidade</option>
+                @if (Unities.Any())
+                {
+                    @foreach (var unity in Unities)
+                    {
+                        <option value="@unity.Id">@unity.Name</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => Model.UnityID)" />
+        </div>
+
+        <div class="mb-3">
+            <label for="monthYear" class="form-label">Mês/Ano de Referência:</label>
+            <InputDate id="monthYear" class="form-control" @bind-Value="Model.MonthYear" />
+            <ValidationMessage For="@(() => Model.MonthYear)" />
+        </div>
+
+        <div class="mb-3">
+            <label for="font" class="form-label">Fonte:</label>
+            <InputText id="font" class="form-control" @bind-Value="Model.Font" />
+            <ValidationMessage For="@(() => Model.Font)" />
+        </div>
+
+        <div class="mb-3">
+            <label for="descriptionFont" class="form-label">Descrição da Fonte:</label>
+            <InputText id="descriptionFont" class="form-control" @bind-Value="Model.DescriptionFont" />
+        </div>
+
+        <div class="mb-3">
+            <label for="quantityGenerated" class="form-label">Quantidade Gerada (kWh):</label>
+            <InputNumber id="quantityGenerated" class="form-control" @bind-Value="Model.QuantityGenerated" />
+            <ValidationMessage For="@(() => Model.QuantityGenerated)" />
+        </div>
+
+        <div class="mb-3">
+            <label for="quantityConsumed" class="form-label">Quantidade Consumida (kWh):</label>
+            <InputNumber id="quantityConsumed" class="form-control" @bind-Value="Model.QuantityConsumed" />
+            <ValidationMessage For="@(() => Model.QuantityConsumed)" />
+        </div>
+
+        <div class="form-check mb-3">
+            <InputCheckbox id="annualReference" class="form-check-input" @bind-Value="Model.AnnualReference" />
+            <label for="annualReference" class="form-check-label">Referência Anual</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="/solar-energy" class="btn btn-secondary">Cancelar</a>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private SolarEnergyModel Model { get; set; }
+    private List<UnityEntity> Unities { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await SolarEnergyService.GetById(Id);
+        Unities = await UnityService.GetUnitsAsync();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await SolarEnergyService.Update(Model);
+        NavigationManager.NavigateTo("/solar-energy");
+    }
+}

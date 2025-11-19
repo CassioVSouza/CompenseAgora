@@ -14,5 +14,6 @@ namespace CompenseAgora.Data
         public DbSet<TypeEnergyEntity> TypeEnergy { get; set; }
         public DbSet<TypeEnergyGasEntity> TypeEnergyGas { get; set; }
         public DbSet<UnityEntity> Unity { get; set; }
+        public DbSet<FactorEletricityEntity> FactorEletricity { get; set; }
     }
 }

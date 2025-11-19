@@ -1,34 +1,125 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">CompenseAgora</a>
+        <a class="navbar-brand" href="">Compense Agora</a>
     </div>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+<div class="nav-scrollable">
     <nav class="nav flex-column">
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="bi bi-speedometer2-nav-menu" aria-hidden="true"></span> Visão Geral
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3 text-white">
+            CADASTROS
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="collaborators" Match="NavLinkMatch.All">
+                <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Colaborador
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/EnergiaPorCompra">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Energia Por Compra
+            <NavLink class="nav-link" href="third-parties" Match="NavLinkMatch.All">
+                <span class="bi bi-people-fill-nav-menu" aria-hidden="true"></span> Terceiros
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            <NavLink class="nav-link" href="unities" Match="NavLinkMatch.All">
+                <span class="bi bi-building-nav-menu" aria-hidden="true"></span> Unidades
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="visaoGeral">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Visão Geral
+            <NavLink class="nav-link" href="users" Match="NavLinkMatch.All">
+                <span class="bi bi-person-circle-nav-menu" aria-hidden="true"></span> Usuários
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="vehicles" Match="NavLinkMatch.All">
+                <span class="bi bi-truck-nav-menu" aria-hidden="true"></span> Veículos
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3 text-white">
+            ESCOPO 1
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/stationary-combustion" Match="NavLinkMatch.All">
+                <span class="bi bi-fire-nav-menu" aria-hidden="true"></span> Combustão Estacionária
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/mobile-combustion" Match="NavLinkMatch.All">
+                <span class="bi bi-fuel-pump-nav-menu" aria-hidden="true"></span> Combustão Móvel
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/industrial-processes" Match="NavLinkMatch.All">
+                <span class="bi bi-gear-wide-connected-nav-menu" aria-hidden="true"></span> Processos Industriais
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3 text-white">
+            ESCOPO 2
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/electric-energy-purchase" Match="NavLinkMatch.All">
+                <span class="bi bi-lightning-charge-fill-nav-menu" aria-hidden="true"></span> En. Elétrica (escolha de compra)
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/electric-energy-location" Match="NavLinkMatch.All">
+                <span class="bi bi-geo-alt-fill-nav-menu" aria-hidden="true"></span> En. Elétrica (localização)
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/solar-energy" Match="NavLinkMatch.All">
+                <span class="bi bi-sun-fill-nav-menu" aria-hidden="true"></span> Energia solar
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3 text-white">
+            ESCOPO 3
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/home-work-emission" Match="NavLinkMatch.All">
+                <span class="bi bi-house-heart-fill-nav-menu" aria-hidden="true"></span> Emissão Casa/Trabalho
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/solid-waste" Match="NavLinkMatch.All">
+                <span class="bi bi-trash3-fill-nav-menu" aria-hidden="true"></span> Resíduos Sólidos
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/business-travel" Match="NavLinkMatch.All">
+                <span class="bi bi-briefcase-fill-nav-menu" aria-hidden="true"></span> Viagens de Negócio
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3 text-white">
+            RELATORIO
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/reports" Match="NavLinkMatch.All">
+                <span class="bi bi-file-earmark-bar-graph-fill-nav-menu" aria-hidden="true"></span> Relatórios
             </NavLink>
         </div>
     </nav>

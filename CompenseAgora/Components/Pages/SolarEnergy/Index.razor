@@ -1,0 +1,71 @@
+@page "/solar-energy"
+@using CompenseAgora.Models
+@using CompenseAgora.Services.Interfaces
+@rendermode InteractiveServer
+@inject ISolarEnergyService SolarEnergyService
+@inject NavigationManager NavigationManager
+
+<h3>Energia Solar</h3>
+
+<p>
+    <a href="/solar-energy/add" class="btn btn-primary">Adicionar Novo</a>
+</p>
+
+@if (solarEnergies == null)
+{
+    <p><em>Carregando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Unidade</th>
+                <th>Mês/Ano</th>
+                <th>Fonte</th>
+                <th>Qtd. Gerada</th>
+                <th>Qtd. Consumida</th>
+                <th>Emissão CO2</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var energy in solarEnergies)
+            {
+                <tr>
+                    <td>@energy.UnityName</td>
+                    <td>@energy.MonthYear.ToString("MM/yyyy")</td>
+                    <td>@energy.Font</td>
+                    <td>@energy.QuantityGenerated</td>
+                    <td>@energy.QuantityConsumed</td>
+                    <td>@energy.CO2</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" @onclick="() => Edit(energy.Id)">Editar</button>
+                        <button class="btn btn-sm btn-danger" @onclick="() => Delete(energy.Id)">Excluir</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<SolarEnergyModel> solarEnergies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        solarEnergies = await SolarEnergyService.GetAll();
+    }
+
+    private void Edit(int id)
+    {
+        NavigationManager.NavigateTo($"/solar-energy/edit/{id}");
+    }
+
+    private async Task Delete(int id)
+    {
+        await SolarEnergyService.Delete(id);
+        solarEnergies = await SolarEnergyService.GetAll(); // Refresh list
+        StateHasChanged();
+    }
+}
